@@ -9,3 +9,7 @@
 ### July 6, 2026
 * **Time Spent:** 1 hour
 * **What I did:** Finallly finished the wiring for my project. I decided to make some hardware sacrifices due to the limited amoutn of pins on the microcontroller. But those can hopefully be solved in the firmware once I make it
+
+### July 6, 2026
+* **Time Spent:** 2.5 hour
+* **What I did:** Finished coding the firmware, hopefully it works!
