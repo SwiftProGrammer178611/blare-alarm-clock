@@ -2,7 +2,7 @@
 hackclub project
 
 ##Short description
-My project is a retro-futurisitc inspired alarm clock. It features a sleek space-like design in white and red, and I am really proud of it! I have never cadded before, so 3d printing something(and hoepfully getting my parts) would be really cool to see my creation come to life. I spent the msot time on cadding, even though it's simple, I had to re-iterate many times for it to look right. I sunk mos tof my time into that!
+My project is a retro-futurisitc inspired alarm clock. It features a sleek space-like design in white and red, and I am really proud of it! I have never cadded before, so 3d printing something(and hoepfully getting my parts) would be really cool to see my creation come to life. I spent the msot time on cadding, even though it's simple, I had to re-iterate many times for it to look right. I sunk most of my time into that! 
 
 ##BOM
 1x Lolin C3 Mini ESP 32 Devboard
