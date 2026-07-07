@@ -19,3 +19,5 @@ CAD:
 <img width="840" height="512" alt="Screenshot 2026-07-06 at 10 41 39 PM" src="https://github.com/user-attachments/assets/5d51edc1-552b-4345-a893-2313b27977c2" />
 Wiring diagram:
 <img width="647" height="863" alt="Screenshot 2026-07-06 at 10 41 50 PM" src="https://github.com/user-attachments/assets/3d8fbba4-9c1c-4b8e-9b42-42922844ea5b" />
+Firmware snapshot:
+<img width="1506" height="982" alt="Screenshot 2026-07-06 at 11 58 52 PM" src="https://github.com/user-attachments/assets/de479831-5407-420b-9233-a90462bac185" />
