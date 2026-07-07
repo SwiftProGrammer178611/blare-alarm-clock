@@ -4,20 +4,20 @@
 #include <Adafruit_SSD1306.h>
 #include <Adafruit_ST7789.h>
 
-#define row1 9   
+#define row1 9
 #define row2 3
 #define col1 4
 #define col2 5
 #define col3 1
-#define piezoPin 2   
+#define piezoPin 2
 #define sda 6
 #define scl 7
 #define cs   20
 #define dc   10
-#define mosi 8    
-#define sck  21   
-#define rst  -1   
-#define backlt   0  
+#define mosi 8
+#define sck  21
+#define rst  -1
+#define backlt   0
 #define settingsOledAdrs 0x3C
 #define gameOledAdrs     0x3D
 
@@ -30,18 +30,18 @@ const int colPins[3] = { col1, col2, col3 };
 bool matrixState[2][3];
 
 // ck
-int hh = 7; 
-int mm = 0; 
+int hh = 7;
+int mm = 0;
 int ss = 0;
-unsigned long lasttick = 0;
+unsigned long last_tick = 0;
 
 // settigns
 int theme = 0;
-int brightPct = 100;
-bool configActive = false;
+int brightness_pct = 100;
+bool config_active = false;
 
 // alarm
-int alarmHour = 7; 
+int alarmHour = 7;
 int alarmMinute = 30;
 bool alarmEnabled = false;
 int alarmSetState = 0;
@@ -49,12 +49,13 @@ bool isAlarmRing = false;
 unsigned long lastBeep = 0;
 
 // pingpong
-int padY = 24; 
+int padY = 24;
 int cpuPadY = 24;
-int xBall = 64; 
+int xBall = 64;
 int yBall = 32;
-int xVel = 2; 
+int xVel = 2;
 int yVel = 1;
+//int xVel = 3; int yVel = 2; // felt too fast on the small screen, slowed it down
 int scorep = 0;
 int scoreC = 0;
 
@@ -62,6 +63,7 @@ int scoreC = 0;
 unsigned long lastActivity = 0;
 bool sleeping = false;
 const unsigned long sleepMS = 60000UL;
+bool firstBoot = true; // might use this for a startup animation later, not yet
 
 void scanMatrix() {
   for (int r = 0; r < 2; r++) pinMode(rowPins[r], INPUT);
@@ -80,7 +82,7 @@ void applyBrightness(int pct) {
   oledSettings.ssd1306_command(v);
   oledGame.ssd1306_command(SSD1306_SETCONTRAST);
   oledGame.ssd1306_command(v);
-  analogWrite(backlt, v); 
+  analogWrite(backlt, v);
 }
 
 void wake() {
@@ -102,7 +104,7 @@ void setup() {
   Wire.begin(sda, scl);
 
   for (int c = 0; c < 3; c++) pinMode(colPins[c], INPUT_PULLUP);
-  for (int r = 0; r < 2; r++) pinMode(rowPins[r], INPUT); 
+  for (int r = 0; r < 2; r++) pinMode(rowPins[r], INPUT);
   pinMode(piezoPin, OUTPUT);
   pinMode(backlt, OUTPUT);
 
@@ -112,9 +114,10 @@ void setup() {
 
   oledSettings.begin(SSD1306_SWITCHCAPVCC, settingsOledAdrs);
   oledGame.begin(SSD1306_SWITCHCAPVCC, gameOledAdrs);
-  applyBrightness(brightPct);
+  applyBrightness(brightness_pct);
 
   lastActivity = millis();
+  firstBoot = false;
 }
 
 void loop() {
@@ -129,11 +132,11 @@ void loop() {
   bool wasSleeping = sleeping;
   bool anyBtn = cfgP || themeP || switchP || upP || downP || wakeP;
   if (anyBtn) wake();
-  if (isAlarmRing && anyBtn) isAlarmRing = false; 
+  if (isAlarmRing && anyBtn) isAlarmRing = false;
 
   if (sleeping) return;
 
-  if (wakeP && !wasSleeping) { 
+  if (wakeP == true && !wasSleeping) {
     sleeping = true;
     tft.fillScreen(ST77XX_BLACK);
     oledSettings.ssd1306_command(SSD1306_DISPLAYOFF);
@@ -141,7 +144,7 @@ void loop() {
     delay(200);
     return;
   }
-  if (!isAlarmRing && millis() - lastActivity > sleepMS) { 
+  if (!isAlarmRing && millis() - lastActivity > sleepMS) {
     sleeping = true;
     tft.fillScreen(ST77XX_BLACK);
     oledSettings.ssd1306_command(SSD1306_DISPLAYOFF);
@@ -149,12 +152,12 @@ void loop() {
     return;
   }
 
-  if (millis() - lasttick >= 1000) {
+  if (millis() - last_tick >= 1000) {
     ss++;
     if (ss >= 60) { ss = 0; mm++; }
     if (mm >= 60) { mm = 0; hh++; }
     if (hh >= 24) hh = 0;
-    lasttick = millis();
+    last_tick = millis();
   }
 
   if (alarmEnabled && !isAlarmRing && hh == alarmHour && mm == alarmMinute && ss == 0) {
@@ -165,42 +168,46 @@ void loop() {
     lastBeep = millis();
   }
 
+  if (cfgP) {
+    tone(piezoPin, 1000, 30);
+    config_active = !config_active;
+    delay(200);
+  }
   if (switchP) {
     tone(piezoPin, 800, 40);
     alarmSetState = (alarmSetState + 1) % 4;
-    delay(200);
+    delay(180);
   }
   if (themeP) {
     tone(piezoPin, 1200, 30);
     theme = !theme;
-    delay(200);
-  }
-  if (cfgP) {
-    tone(piezoPin, 1000, 30);
-    configActive = !configActive;
-    delay(200);
+    delay(220);
   }
 
-  if (configActive) {
-    if (upP)   { brightPct = min(100, brightPct + 10); delay(150); }
-    if (downP) { brightPct = max(0, brightPct - 10); delay(150); }
-    applyBrightness(brightPct);
-  } else if (alarmSetState == 1) {                       
+  if (config_active) {
+    if (upP)   { brightness_pct = min(100, brightness_pct + 10); delay(140); }
+    if (downP) { brightness_pct = max(0, brightness_pct - 10); delay(160); }
+    applyBrightness(brightness_pct);
+  } else if (alarmSetState == 1) {
     if (upP)   { alarmHour = (alarmHour + 1) % 24; delay(150); }
     if (downP) { alarmHour = (alarmHour + 23) % 24; delay(150); }
-  } else if (alarmSetState == 2) {                      
+  } else if (alarmSetState == 2) {
     if (upP)   { alarmMinute = (alarmMinute + 1) % 60; delay(150); }
-    if (downP) { alarmMinute = (alarmMinute + 59) % 60; delay(150); }
-  } else if (alarmSetState == 3) {                      
-    if (upP)   { alarmEnabled = true; delay(150); }
-    if (downP) { alarmEnabled = false; delay(150); }
-  } else if (!configActive) {                            
+    if (downP) {
+      if (alarmMinute == 0) alarmMinute = 59;
+      else alarmMinute--;
+      delay(130);
+    }
+  } else if (alarmSetState == 3) {
+    if (upP)   { alarmEnabled = true; delay(180); }
+    if (downP) { alarmEnabled = false; delay(160); }
+  } else if (!config_active) {
     if (upP && padY > 0) padY -= 3;
     if (downP && padY < 48) padY += 3;
   }
-  if (!configActive && alarmSetState == 0) {
+  if (!config_active && alarmSetState == 0) {
     if (cpuPadY + 8 < yBall && cpuPadY < 48) cpuPadY += 2;
-    if (cpuPadY + 8 > yBall && cpuPadY > 0)  cpuPadY -= 2;
+    if (cpuPadY + 8 > yBall && cpuPadY > 0)  cpuPadY -= 3;
 
     xBall += xVel;
     yBall += yVel;
@@ -218,25 +225,7 @@ void loop() {
     if (xBall > 127) { scorep++; resetBall(); }
   }
 
-  
-  oledSettings.clearDisplay();
-  oledSettings.setTextSize(1);
-  oledSettings.setTextColor(SSD1306_WHITE);
-  oledSettings.setCursor(0, 0);
-  oledSettings.println("SETTINGS");
-  oledSettings.print("Theme: ");
-  if (theme == 0) {
-    oledSettings.println("Cyberpunk");
-  } else {
-    oledSettings.println("Retro");
-  }
-  oledSettings.print("Brightness: ");
-  oledSettings.print(brightPct);
-  oledSettings.println("%");
-  if (configActive) oledSettings.println("[Up/Down to adjust]");
-  oledSettings.display();
 
-  
   oledGame.clearDisplay();
   oledGame.setTextSize(1);
   oledGame.setTextColor(SSD1306_WHITE);
@@ -248,17 +237,29 @@ void loop() {
   oledGame.fillRect(xBall, yBall, 3, 3, SSD1306_WHITE);
   oledGame.display();
 
-  
-  if (configActive) {
-    
+
+  oledSettings.clearDisplay();
+  oledSettings.setTextSize(1);
+  oledSettings.setTextColor(SSD1306_WHITE);
+  oledSettings.setCursor(0, 0);
+  oledSettings.println("SETTINGS");
+  oledSettings.print("Theme: ");
+  if (theme == 0) oledSettings.println("Cyberpunk");
+  else oledSettings.println("Retro");
+  oledSettings.print("Brightness: ");
+  oledSettings.print(brightness_pct);
+  oledSettings.println("%");
+  if (config_active) oledSettings.println("[Up/Down to adjust]");
+  oledSettings.display();
+
+
+  if (config_active) {
+
   } else {
-    tft.fillScreen(ST77XX_BLACK);
+    tft.fillScreen(ST77XX_BLACK); // TODO this flickers a lot, fix later maybe with partial redraw
     tft.setTextWrap(false);
-    if (theme == 0) {
-      tft.setTextColor(ST77XX_CYAN, ST77XX_BLACK);
-    } else {
-      tft.setTextColor(ST77XX_GREEN, ST77XX_BLACK);
-    }
+    if (theme == 0) tft.setTextColor(ST77XX_CYAN, ST77XX_BLACK);
+    else tft.setTextColor(ST77XX_GREEN, ST77XX_BLACK);
 
     tft.setCursor(10, 10);
     tft.setTextSize(2);
@@ -286,22 +287,13 @@ void loop() {
       tft.printf("SET MIN: %02d", alarmMinute);
     } else if (alarmSetState == 3) {
       tft.setTextColor(ST77XX_YELLOW, ST77XX_BLACK);
-      if (alarmEnabled) {
-        tft.print("ALARM: ON");
-      } else {
-        tft.print("ALARM: OFF");
-      };
+      if (alarmEnabled) tft.print("ALARM: ON");
+      else tft.print("ALARM: OFF");
     } else {
-      if (theme == 0) {
-        tft.setTextColor(ST77XX_MAGENTA, ST77XX_BLACK);
-      } else {
-        tft.setTextColor(ST77XX_GREEN, ST77XX_BLACK);
-      }
-      if (alarmEnabled) {
-        tft.printf("Alarm %02d:%02d ON", alarmHour, alarmMinute);
-      } else {
-        tft.printf("Alarm %02d:%02d OFF", alarmHour, alarmMinute);
-      }
+      if (theme == 0) tft.setTextColor(ST77XX_MAGENTA, ST77XX_BLACK);
+      else tft.setTextColor(ST77XX_GREEN, ST77XX_BLACK);
+      if (alarmEnabled) tft.printf("Alarm %02d:%02d ON", alarmHour, alarmMinute);
+      else tft.printf("Alarm %02d:%02d OFF", alarmHour, alarmMinute);
     }
 
     if (isAlarmRing) {
