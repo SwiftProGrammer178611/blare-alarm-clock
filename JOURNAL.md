@@ -19,10 +19,22 @@
 * **What I did:** Cadding was new to me. This shouldn't have taken this long. for my first iteration, I was trying to figure out what to do. My design looked like this:
 * <img width="414" height="408" alt="Screenshot 2026-07-06 at 10 19 56 PM" src="https://github.com/user-attachments/assets/729d2be8-63fa-4100-a675-62f5eac61fc4" />
 
-I really thought I was done, but I hadn't padi attention to what the tutorial said. I also didn't knwo about the chamfer and fillet styles, so I re-did the project, and this time followign the tutorial. I really like how this coloring came out. I initally thought to stick the oled to some arms form the back, but I wanted this to lok kinda retor futuristic, so I went with this design. 
+I really thought I was done, but I hadn't paid attention to what the tutorial said. I also didn't knwo about the chamfer and fillet styles, so I re-did the project, and this time followign the tutorial. I really like how this coloring came out. I initally thought to stick the oled to some arms form the back, but I wanted this to lok kinda retor futuristic, so I went with this design. 
 <img width="708" height="462" alt="Screenshot 2026-07-06 at 10 21 59 PM" src="https://github.com/user-attachments/assets/50428081-1d0f-4edd-81b2-4b7bbbfcd50f" />
 I've quite literally never cadded in my life, and cadding always seemed kinda scary to me, but now I feel somewhat confident in my abilities!
 I am so excited to intergrate the OLED displays!
+
+### July 6, 2026
+* **Time Spent:** 1.5 hours
+* **What I did:** I added a bunch of code for my firmware! Here are the feautres: Clock, alarmclock, pingpong, settings, sleep mode, and the button matrix, and some more like themes and automatic sleep.
+Digital clock
+Alarm clock
+Pong console
+Settings interface
+Theme support
+Brightness control
+Sleep mode
+<img width="1512" height="947" alt="Screenshot 2026-07-06 at 11 56 16 PM" src="https://github.com/user-attachments/assets/9ecf5e21-abdf-4959-aec3-72df1c060c58" />
 
 
 
