@@ -12,9 +12,13 @@ My project is a retro-futurisitc inspired alarm clock. It features a sleek space
 10x M-M Jumper Cables
 10x F-M Jumper Cables
 10x F-F Jumper Cables
-2x OLED displays (bought from the $10 grant)
 
-##The screenshots I haev rn!
+The above are provided with the kit
+
+2x OLED displays (bought from the $10 grant)
+Link: https://www.amazon.com/gp/product/B0D2RMQQHR/ref=ewc_pr_img_1?smid=A2WWHQ25ENKVJ1&th=1
+
+##The screenshots I have rn!
 CAD:
 <img width="840" height="512" alt="Screenshot 2026-07-06 at 10 41 39 PM" src="https://github.com/user-attachments/assets/5d51edc1-552b-4345-a893-2313b27977c2" />
 Wiring diagram:
