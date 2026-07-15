@@ -36,5 +36,9 @@ Brightness control
 Sleep mode
 <img width="1512" height="947" alt="Screenshot 2026-07-06 at 11 56 16 PM" src="https://github.com/user-attachments/assets/9ecf5e21-abdf-4959-aec3-72df1c060c58" />
 
+### July 7, 2026
+* **Time Spent:** 2 hours
+* **What I did:** Turns out there were some blatant mistakes I missed with my CAD. I messed up the posiotning of all the electornics, so I ahad to reposition everything to match the tutorial correctly. 
+
 
 
