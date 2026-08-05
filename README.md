@@ -27,3 +27,7 @@ Wiring diagram:
 
 Firmware snapshot:
 <img width="1506" height="982" alt="Screenshot 2026-07-06 at 11 58 52 PM" src="https://github.com/user-attachments/assets/de479831-5407-420b-9233-a90462bac185" />
+
+
+final cad:
+  <img width="534" height="606" alt="Screenshot 2026-08-04 at 10 26 54 PM" src="https://github.com/user-attachments/assets/3b7e09f5-263d-4d61-8a3a-f85ce8b8a689" />
