@@ -8,7 +8,7 @@ My project is a retro-futurisitc inspired alarm clock. It features a sleek space
 | Quantity | Component Description        | Resource Link                                                                          |
 |----------|------------------------------|----------------------------------------------------------------------------------------|
 | 1x       | Lolin C3 Mini ESP32 Devboard | Included in Kit                                                                        |
-| 12x      | Mechanical Keyboard Switches | Included in Kit                                                                        |
+| 6x       | Mechanical Keyboard Switches | Included in Kit                                                                        |
 | 1x       | 2.25-inch TFT Screen         | Included in Kit                                                                        |
 | 1x       | 3.3V Piezo Buzzer            | Included in Kit                                                                        |
 | 10x      | M-M Jumper Cables            | Included in Kit                                                                        |
