@@ -40,5 +40,7 @@ Sleep mode
 * **Time Spent:** 2 hours
 * **What I did:** Turns out there were some blatant mistakes I missed with my CAD. I messed up the posiotning of all the electornics, so I ahad to reposition everything to match the tutorial correctly. 
 
+### Aug 4th, 2026
+Fixed all mistakes this time hopefully, and resubmitted
 
 
