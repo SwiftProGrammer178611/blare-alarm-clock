@@ -30,4 +30,4 @@ Firmware snapshot:
 
 
 final cad:
-  <img width="534" height="606" alt="Screenshot 2026-08-04 at 10 26 54 PM" src="https://github.com/user-attachments/assets/3b7e09f5-263d-4d61-8a3a-f85ce8b8a689" />
+  <img width="731" height="582" alt="Screenshot 2026-08-05 at 4 29 36 PM" src="https://github.com/user-attachments/assets/492e53ea-f9ec-4649-8184-3a07f85bfce2" />
